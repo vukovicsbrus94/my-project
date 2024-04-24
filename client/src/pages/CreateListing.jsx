@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -7,7 +7,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import { useSelector } from "react-redux";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -32,8 +32,7 @@ export default function CreateListing() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   console.log(formData);
-
-  const handleImageSubmit = async (e) => {
+  const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -86,7 +85,7 @@ export default function CreateListing() {
     });
   };
 
-  const handleRemoveImage = (index) => (e) => {
+  const handleRemoveImage = (index) => {
     setFormData({
       ...formData,
       imageUrls: formData.imageUrls.filter((_, i) => i !== index),
@@ -111,6 +110,7 @@ export default function CreateListing() {
         [e.target.id]: e.target.checked,
       });
     }
+
     if (
       e.target.type === "number" ||
       e.target.type === "text" ||
@@ -147,14 +147,14 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${data._id}`)
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
   return (
-    <div className="p-3 max-w-4xl mx-auto">
+    <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
         Create a Listing
       </h1>
@@ -262,7 +262,7 @@ export default function CreateListing() {
                 min="1"
                 max="10"
                 required
-                className="p-3 border-gray-300 rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
                 value={formData.bathrooms}
               />
@@ -273,19 +273,21 @@ export default function CreateListing() {
                 type="number"
                 id="regularPrice"
                 min="50"
-                max="1000000"
+                max="10000000"
                 required
                 className="p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
               <div className="flex flex-col items-center">
-                <p>Regular Price</p>
-                <span className="text-xs">($ / Month)</span>
+                <p>Regular price</p>
+                {formData.type === "rent" && (
+                  <span className="text-xs">($ / month)</span>
+                )}
               </div>
             </div>
             {formData.offer && (
-              <div className="flex items-center gap-2 ">
+              <div className="flex items-center gap-2">
                 <input
                   type="number"
                   id="discountPrice"
@@ -298,7 +300,10 @@ export default function CreateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted price</p>
-                  <span className="text-xs">($ / Month)</span>
+
+                  {formData.type === "rent" && (
+                    <span className="text-xs">($ / month)</span>
+                  )}
                 </div>
               </div>
             )}
@@ -308,7 +313,7 @@ export default function CreateListing() {
           <p className="font-semibold">
             Images:
             <span className="font-normal text-gray-600 ml-2">
-              The first image will be the cover(max 6)
+              The first image will be the cover (max 6)
             </span>
           </p>
           <div className="flex gap-4">
@@ -345,7 +350,7 @@ export default function CreateListing() {
                 />
                 <button
                   type="button"
-                  onClick={handleRemoveImage(index)}
+                  onClick={() => handleRemoveImage(index)}
                   className="p-3 text-red-700 rounded-lg uppercase hover:opacity-75"
                 >
                   Delete
@@ -361,6 +366,6 @@ export default function CreateListing() {
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>
       </form>
-    </div>
+    </main>
   );
 }
