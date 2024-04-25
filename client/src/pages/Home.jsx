@@ -47,6 +47,7 @@ export default function Home() {
   }, []);
   return (
     <div>
+      
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
         <h1 className="text-slate-700 font-bold text-3xl lg:text-6xl">
           Find your next <span className="text-slate-500">perfect</span>
@@ -67,6 +68,7 @@ export default function Home() {
         </Link>
       </div>
 
+      
       <Swiper navigation>
         {offerListings &&
           offerListings.length > 0 &&
@@ -83,6 +85,8 @@ export default function Home() {
             </SwiperSlide>
           ))}
       </Swiper>
+
+      {/* listing results for offer, sale and rent */}
 
       <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10">
         {offerListings && offerListings.length > 0 && (

@@ -17,6 +17,7 @@ import {
 import Contact from "../components/Contact";
 
 
+
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
@@ -33,6 +34,7 @@ export default function Listing() {
         setLoading(true);
         const res = await fetch(`/api/listing/get/${params.listingId}`);
         const data = await res.json();
+        console.log(data);
         if (data.success === false) {
           setError(true);
           setLoading(false);
@@ -135,7 +137,7 @@ export default function Listing() {
                 {listing.furnished ? "Furnished" : "Unfurnished"}
               </li>
             </ul>
-            {currentUser && listing.uerRef !== currentUser._id && !contact && (
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
                 onClick={() => setContact(true)}
                 className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
@@ -143,8 +145,8 @@ export default function Listing() {
                 Contact landlord
               </button>
             )}
+            {contact && <Contact listing={listing} />}
           </div>
-          {contact && <Contact listing={listing}/>}
         </div>
       )}
     </main>

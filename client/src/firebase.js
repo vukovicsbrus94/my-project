@@ -5,13 +5,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey:import.meta.env.VITE_FIREBASE_API_KEY, 
   authDomain: "booking-3c053.firebaseapp.com",
   projectId: "booking-3c053",
   storageBucket: "booking-3c053.appspot.com",
   messagingSenderId: "536989775479",
-  appId: "1:536989775479:web:3bae06b353784287b93872",
+  appId: "1:536989775479:web:3bae06b353784287b93872"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
