@@ -20,6 +20,7 @@ export default function Contact({ listing }) {
     };
     fetchLandlord();
   }, [listing.userRef]);
+
   return (
     <>
       {landlord && (
@@ -36,7 +37,7 @@ export default function Contact({ listing }) {
             value={message}
             onChange={onChange}
             placeholder="Enter your message here..."
-            className="w-full border p-3 rounded-lg"
+            className="w-full border rounded-lg"
           ></textarea>
 
           <Link
